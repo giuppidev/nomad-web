@@ -14,8 +14,8 @@
     "drizzle:seed": "tsx lib/seed.ts",
     "drizzle:drop": "drizzle-kit drop",
     "drizzle:reset": "tsx lib/reset.ts",
-    "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
