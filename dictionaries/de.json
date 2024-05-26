@@ -1,20 +1,7 @@
 {
-    "page": {
-        "card1": {
-            "title": "Dokumente",
-            "content": "Finden Sie ausführliche Informationen zu den Funktionen und der API von Next.js."
-        },
-        "card2": {
-            "title": "Lernen",
-            "content": "Lernen Sie Next.js in einem interaktiven Kurs mit Quizfragen kennen!"
-        },
-        "card3": {
-            "title": "Vorlagen",
-            "content": "Erkunden Sie Startervorlagen für Next.js."
-        },
-        "card4": {
-            "title": "Bereitstellen",
-            "content": "Bereiten Sie Ihre Next.js-Website sofort auf einer öffentlichen URL mit Vercel vor."
-        }
+  "page": {
+    "home": {
+      "title": "Welcome in the Nomad Project"
     }
+  }
 }
