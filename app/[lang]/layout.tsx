@@ -18,8 +18,7 @@ const LocaleLayout = async ({
   const dictionary = await getDictionary(params.lang);
 
   return (
-    <LocaleProvider lang={params.lang} dictionary={dictionary} >
-      <Header />
+    <LocaleProvider lang={params.lang} dictionary={dictionary}>
       <main lang={params.lang}>{children}</main>
     </LocaleProvider>
   );
