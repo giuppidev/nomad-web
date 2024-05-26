@@ -3,6 +3,7 @@
 import { Locale } from "@/i18n.config";
 import Image from "next/image";
 // import { getDictionary } from "@/lib/dictionary";
+import { Modal } from "@/components/Modal";
 import { useLocaleContext } from "@/context/LocaleContext";
 import { DemoButtons } from "@/components/DemoButtons";
 
