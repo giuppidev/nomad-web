@@ -16,7 +16,7 @@ export function Modal(props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Modal</Button>
+        <Button variant="outline">{props.Trigger}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
