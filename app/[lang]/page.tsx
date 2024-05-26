@@ -2,7 +2,14 @@
 
 import { Locale } from "@/i18n.config";
 import { useLocaleContext } from "@/context/LocaleContext";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 export default function Home({
   params: { lang },
 }: {
