@@ -7,15 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "prepare": "husky",
     "drizzle:generate": "drizzle-kit generate:pg",
     "drizzle:push": "drizzle-kit push:pg",
     "drizzle:studio": "drizzle-kit studio",
     "drizzle:seed": "tsx lib/seed.ts",
     "drizzle:drop": "drizzle-kit drop",
-    "drizzle:reset": "tsx lib/reset.ts",
-    "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "drizzle:reset": "tsx lib/reset.ts"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
