@@ -12,20 +12,34 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-export function Modal(props) {
+interface ModalProps {
+  trigger: string;
+  title: string;
+  description: string;
+  cancel: string;
+  action: string;
+}
+
+export function Modal({
+  trigger,
+  title,
+  description,
+  cancel,
+  action,
+}: ModalProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">{props.Trigger}</Button>
+        <Button variant="outline">{trigger}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{props.Title}</AlertDialogTitle>
-          <AlertDialogDescription>{props.Description}</AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{props.Cancel}</AlertDialogCancel>
-          <AlertDialogAction>{props.Action}</AlertDialogAction>
+          <AlertDialogCancel>{cancel}</AlertDialogCancel>
+          <AlertDialogAction>{action}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
