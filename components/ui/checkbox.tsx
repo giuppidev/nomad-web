@@ -5,26 +5,55 @@ import { Check } from "lucide-react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <CheckboxPrimitive.Root
-    ref={ref}
-    className={cn(
-      "peer h-4 w-4 shrink-0 rounded-sm border border-slate-200 border-slate-900 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-slate-900 data-[state=checked]:text-slate-50 dark:border-slate-800 dark:border-slate-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 dark:data-[state=checked]:bg-slate-50 dark:data-[state=checked]:text-slate-900",
-      className,
-    )}
-    {...props}
-  >
-    <CheckboxPrimitive.Indicator
-      className={cn("flex items-center justify-center text-current")}
+const checkboxVariants = cva(
+  "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+  {
+    variants: {
+      variant: {
+        active: "",
+        inactive: "",
+        inactivated: "",
+      },
+      indicator: {
+        show: "",
+        hide: "",
+      },
+    },
+    defaultVariants: {
+      variant: "inactive",
+      indicator: "show",
+    },
+  },
+);
+
+type CheckboxElement = React.ElementRef<typeof CheckboxPrimitive.Root>;
+
+interface CheckboxProps
+  extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+  variant?: VariantProps<typeof checkboxVariants>["variant"];
+  indicator?: VariantProps<typeof checkboxVariants>["indicator"];
+  className?: string;
+}
+
+const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>(
+  ({ className, variant, indicator, ...props }, ref) => (
+    <CheckboxPrimitive.Root
+      className={cn(checkboxVariants({ className, ...props }))}
+      ref={ref}
+      {...props}
     >
-      <Check className="h-4 w-4" />
-    </CheckboxPrimitive.Indicator>
-  </CheckboxPrimitive.Root>
-));
+      {indicator === "show" && (
+        <CheckboxPrimitive.Indicator
+          className={cn("flex items-center justify-center text-current")}
+        >
+          <Check className="h-4 w-4" />
+        </CheckboxPrimitive.Indicator>
+      )}
+    </CheckboxPrimitive.Root>
+  ),
+);
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-export { Checkbox };
+export { Checkbox, checkboxVariants };
