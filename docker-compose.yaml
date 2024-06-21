@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    container_name: nomad-web
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+    ports:
+      - 3000:3000
+    depends_on:
+      - "db"
+  db:
+    image: postgres
+    restart: always
+    user: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      # - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+volumes:
+  postgres:
