@@ -1,8 +1,11 @@
 "use client";
 
 import { FormWizard, FormWizardItem } from "@/components/formWizard/FormWizard";
+import {
+  FormWizardItemType,
+  useFormWizardContext,
+} from "@/context/FormWizardContext";
 import { Locale } from "@/i18n.config";
-import ExampleButton from "@/shared/components/ExampleButton";
 import { useState } from "react";
 
 export default function Wizard({
@@ -10,30 +13,46 @@ export default function Wizard({
 }: {
   params: { lang: Locale };
 }) {
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const formWizardItem = [
+  const formWizardItem: FormWizardItemType[] = [
     {
+      content: <Item currentIndex={0} />,
+      completed: false,
       index: 0,
-      content: <ExampleButton setCurrentStep={setCurrentStep} />,
     },
     {
+      content: <Item currentIndex={1} />,
+      completed: false,
       index: 1,
-      content: <ExampleButton setCurrentStep={setCurrentStep} />,
     },
     {
+      content: <Item currentIndex={2} />,
+      completed: false,
       index: 2,
-      content: <ExampleButton setCurrentStep={setCurrentStep} />,
     },
   ];
 
   return (
-    <FormWizard currentIndex={currentStep}>
-      {formWizardItem.map((item) => (
-        <FormWizardItem key={item.index} index={item.index}>
+    <FormWizard wizardSteps={formWizardItem}>
+      {formWizardItem.map((item, index) => (
+        <FormWizardItem key={index} index={index}>
           {item.content}
         </FormWizardItem>
       ))}
     </FormWizard>
   );
 }
+
+const Item = ({ currentIndex }: { currentIndex: number }) => {
+  const { setStepCompleted } = useFormWizardContext();
+
+  const completeStep = () => {
+    setStepCompleted(currentIndex);
+  };
+
+  return (
+    <div>
+      <div>{currentIndex}</div>
+      <button onClick={completeStep}>Complete</button>
+    </div>
+  );
+};

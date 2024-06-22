@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence } from "framer-motion";
-import CustomMotionDiv from "./CustomMotionDiv/CustomMotionDiv";
+import CustomMotionDiv from "../../../shared/components/CustomMotionDiv/CustomMotionDiv";
 
 type ExampleButtonProps = {
   setCurrentStep: Dispatch<SetStateAction<number>>;
@@ -14,7 +14,7 @@ const ExampleButton = ({ setCurrentStep }: ExampleButtonProps) => {
     setInvisible(false);
     setTimeout(() => {
       setCurrentStep((index) => index + 1);
-    }, 1600);
+    }, 500);
   };
 
   return (
@@ -41,7 +41,7 @@ const ExampleButton = ({ setCurrentStep }: ExampleButtonProps) => {
             exit={{ y: "-100vh" }}
           >
             <Button className="p-4" variant={"primary"} onClick={nextStep}>
-              sEC BOTTONE
+              SEC BOTTONE
             </Button>
           </CustomMotionDiv>
           <CustomMotionDiv

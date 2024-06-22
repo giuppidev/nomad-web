@@ -1,11 +1,23 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, ReactNode } from "react";
+
+export type FormWizardItemType = {
+  content: ReactNode;
+  completed: boolean;
+  index: number;
+};
 
 export type FormWizardContextType = {
-  currentIndex: number;
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+  steps: FormWizardItemType[];
+  setStepCompleted: (step: number) => void;
 };
 
 export const FormWizardContext = createContext<FormWizardContextType>({
-  currentIndex: 0,
+  currentStep: 0,
+  setCurrentStep: () => null,
+  steps: [],
+  setStepCompleted: (steps: number) => null,
 });
 
 export const useFormWizardContext = () => {
