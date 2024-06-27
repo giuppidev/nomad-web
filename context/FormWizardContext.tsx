@@ -3,7 +3,6 @@ import { createContext, useContext, ReactNode } from "react";
 export type FormWizardItemType = {
   content: ReactNode;
   completed: boolean;
-  index: number;
 };
 
 export type FormWizardContextType = {
@@ -11,6 +10,7 @@ export type FormWizardContextType = {
   setCurrentStep: (step: number) => void;
   steps: FormWizardItemType[];
   setStepCompleted: (step: number) => void;
+  setStepNotCompleted: (step: number) => void;
 };
 
 export const FormWizardContext = createContext<FormWizardContextType>({
@@ -18,6 +18,7 @@ export const FormWizardContext = createContext<FormWizardContextType>({
   setCurrentStep: () => null,
   steps: [],
   setStepCompleted: (steps: number) => null,
+  setStepNotCompleted: (step: number) => null,
 });
 
 export const useFormWizardContext = () => {

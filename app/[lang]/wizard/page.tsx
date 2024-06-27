@@ -15,26 +15,23 @@ export default function Wizard({
 }) {
   const formWizardItem: FormWizardItemType[] = [
     {
-      content: <Item currentIndex={0} />,
+      content: <Item />,
       completed: false,
-      index: 0,
     },
     {
-      content: <Item currentIndex={1} />,
+      content: <Item />,
       completed: false,
-      index: 1,
     },
     {
-      content: <Item currentIndex={2} />,
+      content: <Item />,
       completed: false,
-      index: 2,
     },
   ];
 
   return (
     <FormWizard wizardSteps={formWizardItem}>
       {formWizardItem.map((item, index) => (
-        <FormWizardItem key={index} index={index}>
+        <FormWizardItem key={index} stepIndex={index}>
           {item.content}
         </FormWizardItem>
       ))}
@@ -42,16 +39,17 @@ export default function Wizard({
   );
 }
 
-const Item = ({ currentIndex }: { currentIndex: number }) => {
-  const { setStepCompleted } = useFormWizardContext();
+const Item = () => {
+  const { setStepCompleted, currentStep } = useFormWizardContext();
 
+  /** Puoi prendere il current step dal context **/
   const completeStep = () => {
-    setStepCompleted(currentIndex);
+    setStepCompleted(currentStep);
   };
 
   return (
     <div>
-      <div>{currentIndex}</div>
+      <div>{currentStep}</div>
       <button onClick={completeStep}>Complete</button>
     </div>
   );

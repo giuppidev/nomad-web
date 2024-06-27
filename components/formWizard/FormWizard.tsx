@@ -7,8 +7,9 @@ import {
 } from "@/context/FormWizardContext";
 import CustomMotionDiv from "@/shared/components/CustomMotionDiv/CustomMotionDiv";
 import { AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
+import React from "react";
 
 type FormWizardProps = {
   children: React.ReactNode;
@@ -16,50 +17,78 @@ type FormWizardProps = {
 };
 type FormWizardItemProps = {
   children: React.ReactNode;
-  index: number;
+  stepIndex: number;
 };
 
 const FormWizard = ({ children, wizardSteps }: FormWizardProps) => {
   const [steps, setSteps] = useState(wizardSteps);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const initialValues: FormWizardContextType = {
-    currentStep,
-    setCurrentStep: (step: number) => setCurrentStep(step),
-    setStepCompleted: (stepIndex: number) =>
-      setSteps(
-        steps.map((step, index) =>
+  const stepsChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children],
+  );
+
+  const setStepCompleted = useCallback(
+    (stepIndex: number) =>
+      setSteps((prevSteps) =>
+        prevSteps.map((step, index) =>
           index === stepIndex ? { ...step, completed: true } : step,
         ),
       ),
-    steps,
-  };
+    [setSteps],
+  );
+
+  const setStepNotCompleted = useCallback(
+    (stepIndex: number) =>
+      setSteps((prevSteps) =>
+        prevSteps.map((step, index) =>
+          index === stepIndex ? { ...step, completed: false } : step,
+        ),
+      ),
+    [setSteps],
+  );
+
+  const initialValues: FormWizardContextType = useMemo(
+    () => ({
+      currentStep,
+      setCurrentStep,
+      setStepCompleted,
+      setStepNotCompleted,
+      steps,
+    }),
+    [currentStep, setCurrentStep, setStepCompleted, setStepNotCompleted, steps],
+  );
 
   return (
     <FormWizardContext.Provider value={initialValues}>
-      {children}
+      {stepsChildren[currentStep]}
     </FormWizardContext.Provider>
   );
 };
 
-const FormWizardItem = ({ children, index }: FormWizardItemProps) => {
-  const { currentStep, setCurrentStep, steps } = useFormWizardContext();
+const FormWizardItem = ({ children, stepIndex }: FormWizardItemProps) => {
+  const { currentStep, setCurrentStep, steps, setStepNotCompleted } =
+    useFormWizardContext();
   const [visibile, setVisible] = useState(true);
 
   useEffect(() => {
-    setVisible(currentStep === index);
-  }, [currentStep, index]);
+    setVisible(currentStep === stepIndex);
+  }, [currentStep, stepIndex]);
 
-  if (currentStep !== index) {
-    return null;
-  }
-
-  const nextStep = (nextStep: number) => {
-    setVisible(false);
-    setTimeout(() => {
-      setCurrentStep(nextStep);
-    }, 500);
-  };
+  const nextStep = useCallback(
+    (nextStep: number, prev: boolean) => {
+      setVisible(false);
+      /** If prev step, disable completed */
+      if (prev) {
+        setStepNotCompleted(currentStep - 1);
+      }
+      setTimeout(() => {
+        setCurrentStep(nextStep);
+      }, 500);
+    },
+    [currentStep, setVisible, setStepNotCompleted, setCurrentStep],
+  );
 
   return (
     <AnimatePresence>
@@ -76,7 +105,7 @@ const FormWizardItem = ({ children, index }: FormWizardItemProps) => {
               <Button
                 className="p-4"
                 variant={"primary"}
-                onClick={() => nextStep(currentStep - 1)}
+                onClick={() => nextStep(currentStep - 1, true)}
               >
                 PREV
               </Button>
@@ -102,7 +131,7 @@ const FormWizardItem = ({ children, index }: FormWizardItemProps) => {
               <Button
                 className="m-4"
                 variant={"primary"}
-                onClick={() => nextStep(currentStep + 1)}
+                onClick={() => nextStep(currentStep + 1, false)}
                 disabled={!steps[currentStep].completed}
               >
                 NEXT
