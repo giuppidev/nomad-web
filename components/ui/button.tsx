@@ -75,14 +75,14 @@ const Button = React.forwardRef<
         ref={ref}
         {...props}
       >
-        {Icon && iconPlacement === "left" && (
+        {iconName && iconPlacement === "left" && (
           <Icon
             iconName={iconName}
             className={`${size !== "icon" ? "mr-2" : null}`}
           />
         )}
         <Slottable>{props.children}</Slottable>
-        {Icon && iconPlacement === "right" && (
+        {iconName && iconPlacement === "right" && (
           <Icon
             iconName={iconName}
             className={`${size !== "icon" ? "ml-2" : null}`}
