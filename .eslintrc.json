@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "next",
-    "prettier",
-    "plugin:storybook/recommended"
-  ],
+  "extends": ["next", "prettier", "plugin:storybook/recommended"],
   "rules": {
     "semi": "error"
   }
