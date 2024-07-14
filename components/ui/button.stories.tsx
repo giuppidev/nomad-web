@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "@/components/ui/button";
 import { iconCollection } from "@/components/icon/iconCollection";
-import { action } from "@storybook/addon-actions";
+import { fn } from "@storybook/test";
 
 const meta = {
   title: "Components/ui/button",
@@ -53,7 +53,7 @@ export const Primary: Story = {
     variant: "primary",
     size: "sm",
     disabled: false,
-    onClick: action("primary button clicked"),
+    onClick: fn(),
     children: "Primary button",
   },
 };
@@ -63,7 +63,7 @@ export const Secondary: Story = {
     variant: "secondary",
     size: "sm",
     disabled: false,
-    onClick: action("secondary button clicked"),
+    onClick: fn(),
     children: "Secondary button",
   },
 };
@@ -73,7 +73,7 @@ export const Outline: Story = {
     variant: "outline",
     size: "sm",
     disabled: false,
-    onClick: action("outline button clicked"),
+    onClick: fn(),
     children: "Outline button",
   },
 };
@@ -83,7 +83,7 @@ export const Ghost: Story = {
     variant: "ghost",
     size: "sm",
     disabled: false,
-    onClick: action("ghost button clicked"),
+    onClick: fn(),
     children: "Ghost button",
   },
 };
@@ -93,7 +93,7 @@ export const Link: Story = {
     variant: "link",
     size: "sm",
     disabled: false,
-    onClick: action("link button clicked"),
+    onClick: fn(),
     children: "Link button",
   },
 };
